@@ -75,13 +75,19 @@ fi
 TOKEN_NAME=`sudo kubectl -n kube-system get secret | grep default-token | awk '{print $1}'`
 echo "Token name: ${TOKEN_NAME}"
 
-if [ ! -d welcome ]; then
+if [ ! -d welcome2 ]; then
     mkdir -p welcome
     cat <<EOM >welcome/index.html
-<html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Kubernetes test</title>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
 <body>
+<div class="container">
 <h1>Kubernetes test</h1>
 <p>
 Congratulations! You installed local test Kubernetes environment.
@@ -91,16 +97,23 @@ To learn more about kubernetes go to: <a href="https://kubernetes.io">kubernetes
 </p>
 <p>
 To open a <a href="https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/">WebUI</a> locally, first run:
-<pre>
+<code>
 vagrant ssh -c ./kube-proxy.sh
-</pre>
+</code>
+</p>
+<p>
 After that, click here:
 <a href="/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/">WebUI</a>
 </p>
 
+<p>
 You will need a token to login (select [x] Token auth). 
 You can see a token in the last lines of <code>vagrant up command</code>.
+</p>
+<p>
 If you miss a token, stop <code>vagrant ssh ...</code> and run <code>vagrant provision</code> again to show the token.
+</p>
+</div>
 </body>
 </html>
 EOM

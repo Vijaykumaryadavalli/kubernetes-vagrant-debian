@@ -1,5 +1,5 @@
 #!/bin/bash
-KEY=.vagrant/machines/default/virtualbox/private_key
-scp -P 2222 -i ${KEY} vagrant@localhost:~/.minikube/client.crt ~/.kube/client.crt
-scp -P 2222 -i ${KEY} vagrant@localhost:~/.minikube/client.key ~/.kube/client.key
-scp -P 2222 -i ${KEY} vagrant@localhost:~/.minikube/ca.crt ~/.kube/ca.crt
+KEY=.vagrant/machines/kubetest/virtualbox/private_key
+scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -P 2222 -i ${KEY} vagrant@localhost:~/.minikube/client.crt ~/.kube/client.crt
+scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -P 2222 -i ${KEY} vagrant@localhost:~/.minikube/client.key ~/.kube/client.key
+scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -P 2222 -i ${KEY} vagrant@localhost:~/.minikube/ca.crt ~/.kube/ca.crt

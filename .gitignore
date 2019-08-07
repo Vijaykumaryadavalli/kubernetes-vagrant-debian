@@ -1,1 +1,3 @@
 .vagrant
+*.crt
+*.key

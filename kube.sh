@@ -4,10 +4,12 @@ set -e
 sudo apt update
 sudo apt upgrade -y
 
+## Specify kubernetes version you want
+KUBEVER=v1.15.2
+
 if [ ! -f /usr/local/bin/kubectl ]; then
-    KUBECTLVER=`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`
-    echo "💡 Downloading kubectl ${KUBECTLVER}"
-    curl -sLO https://storage.googleapis.com/kubernetes-release/release/${KUBECTLVER}/bin/linux/amd64/kubectl
+    echo "💡 Downloading kubectl ${KUBEVER}"
+    curl -sLO https://storage.googleapis.com/kubernetes-release/release/${KUBEVER}/bin/linux/amd64/kubectl
     sudo mv ./kubectl /usr/local/bin
     sudo chmod a+x /usr/local/bin/kubectl
 fi
@@ -43,8 +45,20 @@ fi
 
 if [ ! -d /etc/kubernetes ]; then
     echo "💡 Starting kubernetes via Docker driver"
-    sudo minikube start --vm-driver=none
+    sudo minikube start --vm-driver=none --kubernetes-version=${KUBEVER}
     sudo kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-beta1/aio/deploy/recommended.yaml
+fi
+
+if [ ! -d .minukube ]; then
+    echo "💡 Copying credentials for Vagrant user"
+    sudo cp -r /root/.minikube .
+    sudo chown -R vagrant .minikube
+fi
+
+if [ ! -d .kube ]; then
+    mkdir -p .kube
+    echo "💡 Enabling access for Vagrant user"
+    sudo cat /root/.kube/config | sed -re "s/\/root/\/home\/vagrant/g" > .kube/config
 fi
 
 if [ ! -f ./dashboard-adminuser.yaml ]; then

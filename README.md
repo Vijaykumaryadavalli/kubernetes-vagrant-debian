@@ -29,3 +29,21 @@ Execute following command to see list of pods running:
 ```
 kubectl get pods -n kube-system
 ```
+
+### Deploying apps
+
+This example setup includes two apps able to be deployed to Kubernetes.
+
+- nginx
+- camunda
+
+To deploy, go into the folder and execute `kubectl -f .`
+
+After that, to access specified application, add entries to /etc/hosts file:
+
+- 192.168.16.10 nginx
+- 192.168.16.10 camunda
+
+And open in browser http://nginx or http://camunda.
+
+To learn more how deployments, ingress and services work, consult pages on https://kubernetes.io

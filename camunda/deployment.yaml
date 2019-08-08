@@ -1,0 +1,25 @@
+# https://kubernetes.io/docs/tasks/run-application/run-stateless-application-deployment/
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: camunda-deployment
+spec:
+  selector:
+    matchLabels:
+      app: camunda
+  replicas: 1 # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: camunda
+    spec:
+      containers:
+      - name: camunda
+        image: camundacloud/camunda-demo:latest
+        ports:
+        - containerPort: 8080
+        env:
+          - name: CAMUNDA_PWD
+            value: "123"
+
+

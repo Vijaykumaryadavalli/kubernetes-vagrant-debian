@@ -1,0 +1,12 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: camunda-ingress
+spec:
+  rules:
+  - host: camunda
+    http:
+      paths:
+      - backend:
+          serviceName: camunda-service
+          servicePort: 8080

@@ -5,12 +5,15 @@ Vagrant.configure("2") do |config|
   config.ssh.insert_key = true
   config.ssh.forward_agent = true
 
+  # https://cloudavail.com/2014/07/08/vagrant-network-vbox-adapters/
   # WebUI https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/
   config.vm.network :forwarded_port, guest: 8001, host: 8001
   # Cluster access via kubectl
   config.vm.network :forwarded_port, guest: 8443, host: 8443
   # SSH & SCP
-  config.vm.network :forwarded_port, guest: 2222, host: 2222
+  config.vm.network :forwarded_port, guest: 22, host: 2222
+  # Host-only adapter
+  config.vm.network "private_network", :ip => '192.168.16.10'
 
   config.vm.provider "virtualbox" do |vb|
     vb.name = "kubetest"

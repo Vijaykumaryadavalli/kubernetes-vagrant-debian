@@ -47,6 +47,8 @@ if [ ! -d /etc/kubernetes ]; then
     echo "💡 Starting kubernetes via Docker driver"
     sudo minikube start --vm-driver=none --kubernetes-version=${KUBEVER}
     sudo kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-beta1/aio/deploy/recommended.yaml
+    sudo kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/mandatory.yaml
+    sudo minikube addons enable ingress
 fi
 
 if [ ! -d .minukube ]; then

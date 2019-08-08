@@ -47,3 +47,28 @@ After that, to access specified application, add entries to /etc/hosts file:
 And open in browser http://nginx or http://camunda.
 
 To learn more how deployments, ingress and services work, consult pages on https://kubernetes.io
+
+## TLDR: Full setup
+
+```bash
+# Install Vagrant and VirtualBox
+# Bring machine up
+vagrant up
+# Configure local kubectl
+mkdir -p ~/.kube
+./copycerts
+cp kube-config ~/.kube/config
+# Download kubectl binary
+curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.15.0/bin/linux/amd64/kubectl
+chmod a+x kubectl
+# Check it works
+./kubectl version
+# Deploy services
+./kubectl apply -f nginx
+./kubectl apply -f camunda
+# Add hostnames so they can be accessed
+echo "192.168.16.10 nginx" | sudo tee -a /etc/hosts
+echo "192.168.16.10 camunda" | sudo tee -a /etc/hosts
+# Check it out
+curl http://nginx
+```

@@ -1,15 +1,27 @@
 #!/bin/bash
 set -e
+export DEBIAN_FRONTEND=noninteractive
+export DEBIAN_PRIORITY=critical
+sudo apt-get update
+sudo apt-get upgrade -y
 
-sudo apt update
-sudo apt upgrade -y
+## Specify versions you want
 
-## Specify kubernetes version you want
+# Kubernetes cluster version
 KUBEVER=v1.15.2
+# usually matches Kubernetes version, see https://kubernetes.io/docs/reference/kubectl/kubectl/
+# and curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt
+KUBECTLVER=v1.15.2
+# https://github.com/kubernetes/minikube/releases
+MINIKUBEVER=v1.2.0
+# apt-cache policy docker-ce
+DOCKERVER=5:18.09.8
+# apt-cache policy containerd.io
+CONTAINERDVER=1.2.2-3
 
 if [ ! -f /usr/local/bin/kubectl ]; then
-    echo "💡 Downloading kubectl ${KUBEVER}"
-    curl -sLO https://storage.googleapis.com/kubernetes-release/release/${KUBEVER}/bin/linux/amd64/kubectl
+    echo "💡 Downloading kubectl ${KUBECTLVER}"
+    curl -sLO https://storage.googleapis.com/kubernetes-release/release/${KUBECTLVER}/bin/linux/amd64/kubectl
     sudo mv ./kubectl /usr/local/bin
     sudo chmod a+x /usr/local/bin/kubectl
 fi
@@ -17,8 +29,8 @@ fi
 kubectl version --client=true
 
 if [ ! -f /usr/local/bin/minikube ]; then
-    echo "💡 Downloading latest minikube"
-    curl -sLo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+    echo "💡 Downloading minikube ${MINIKUBEVER}"
+    curl -sLo minikube https://storage.googleapis.com/minikube/releases/${MINIKUBEVER}/minikube-linux-amd64
     sudo mv ./minikube /usr/local/bin
     chmod a+x /usr/local/bin/minikube
 fi
@@ -26,7 +38,7 @@ fi
 minikube version
 
 if [ ! -d /etc/docker ]; then
-    echo "💡 Installing Docker CE"
+    echo "💡 Installing Docker CE ${DOCKERVER} with containerd ${CONTAINERDVER}"
     sudo apt-get install -y \
         apt-transport-https \
         ca-certificates \
@@ -39,8 +51,8 @@ if [ ! -d /etc/docker ]; then
 $(lsb_release -cs) \
 stable"
 
-    sudo apt update
-    sudo apt install -y docker-ce docker-ce-cli
+    sudo apt-get update
+    sudo apt-get install -y docker-ce=${DOCKERVER}* docker-ce-cli=${DOCKERVER}* containerd.io=${CONTAINERDVER}*
 fi
 
 if [ ! -d /etc/kubernetes ]; then

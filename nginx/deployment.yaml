@@ -1,5 +1,5 @@
 # https://kubernetes.io/docs/tasks/run-application/run-stateless-application-deployment/
-apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-deployment

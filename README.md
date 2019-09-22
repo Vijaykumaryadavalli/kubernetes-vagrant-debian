@@ -48,7 +48,12 @@ And open in browser http://nginx.local or http://camunda.local
 
 To learn more how deployments, ingress and services work, consult pages on https://kubernetes.io
 
-## TLDR: Full setup
+## Camunda
+
+Camunda BPM is a Bussines Process Management engine with UI apps to get started easy.
+This Kubernetes setup includes it with username: demo and password: 123
+
+## Full setup
 
 ```bash
 # Install Vagrant and VirtualBox
@@ -70,5 +75,5 @@ chmod a+x kubectl
 echo "192.168.16.10 nginx.local" | sudo tee -a /etc/hosts
 echo "192.168.16.10 camunda.local" | sudo tee -a /etc/hosts
 # Check it out
-curl http://nginx
+curl http://nginx.local
 ```

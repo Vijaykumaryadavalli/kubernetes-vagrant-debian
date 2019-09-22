@@ -4,9 +4,9 @@ metadata:
   name: camunda-ingress
 spec:
   rules:
-  - host: camunda
-    http:
-      paths:
-      - backend:
-          serviceName: camunda-service
-          servicePort: 8080
+    - host: camunda.local
+      http:
+        paths:
+          - backend:
+              serviceName: camunda-service
+              servicePort: 8080

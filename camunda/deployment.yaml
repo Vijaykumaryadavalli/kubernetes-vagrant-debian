@@ -14,12 +14,10 @@ spec:
         app: camunda
     spec:
       containers:
-      - name: camunda
-        image: camundacloud/camunda-demo:latest
-        ports:
-        - containerPort: 8080
-        env:
-          - name: CAMUNDA_PWD
-            value: "123"
-
-
+        - name: camunda
+          image: camundacloud/camunda-demo:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: CAMUNDA_PWD
+              value: "123"

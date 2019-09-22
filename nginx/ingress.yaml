@@ -4,10 +4,9 @@ metadata:
   name: nginx-ingress
 spec:
   rules:
-  - host: nginx
-    http:
-      paths:
-      - backend:
-          serviceName: nginx-service
-          servicePort: 80
-
+    - host: nginx.local
+      http:
+        paths:
+          - backend:
+              serviceName: nginx-service
+              servicePort: 80

@@ -1,5 +1,17 @@
 # Kubernetes box
 
+This project is cloned from https://github.com/huksley/kubernetes-vagrant-debian.git
+
+I have modified some code in kube.sh and Vagrantfile related to my application.
+
+The instructions are below
+
+Switch to the git project folder as below:
+
+```bash
+cd kubernetes-vagrant-debian
+```
+
 Initializes test Kubernetes environment using Vagrant and VirtualBox.
 To run locally, clone this repo and execute:
 

@@ -57,10 +57,14 @@ fi
 
 if [ ! -d /etc/kubernetes ]; then
     echo "💡 Starting kubernetes via Docker driver"
+    #  echo "💡 Starting kubernetes via virtualbox driver"
     sudo minikube start --vm-driver=none --kubernetes-version=${KUBEVER}
     sudo kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-beta1/aio/deploy/recommended.yaml
-    sudo kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/mandatory.yaml
+    # sudo kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/mandatory.yaml
+    # sudo kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/mandatory.yaml
+    sudo kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/130af33510882ae62c89277f2ad0baca50e0fafe/deploy/static/mandatory.yaml
     sudo minikube addons enable ingress
+    # sudo minikube start
 fi
 
 if [ ! -d .minukube ]; then

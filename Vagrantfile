@@ -5,6 +5,10 @@ Vagrant.configure("2") do |config|
   config.ssh.insert_key = true
   config.ssh.forward_agent = true
 
+  # config.ssh.username = "vagrant"
+  # config.ssh.private_key_path = "E:/All Virtual Boxes via Vagrant/Minikube/kubernetes-vagrant-debian/.vagrant/machines/kubetest/virtualbox/private_key"
+  # config.ssh.password = "vagrant"
+  
   # https://cloudavail.com/2014/07/08/vagrant-network-vbox-adapters/
   # WebUI https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/
   config.vm.network :forwarded_port, guest: 8001, host: 8001
